@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'net.phosphor.phosphor'
@@ -39,3 +40,24 @@ jar {
         configurations.implementation.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'net.phosphor.phosphor'
+            artifactId = 'phosphor-server'
+            version = "${project.version}"
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = version.toString().endsWith("-SNAPSHOT") ? "https://repo.princessheaven.de/snapshots" : "https://repo.princessheaven.de/releases"
+            credentials {
+                username = project.property("repo_username").toString()
+                password = project.property("repo_password").toString()
+            }
+        }
+    }
+}
+
