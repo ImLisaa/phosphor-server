@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+}
+
+group = 'net.phosphor.phosphor'
+version = '1.20.1-R0.1-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://repo.princessheaven.de/releases' }
+}
+
+dependencies {
+    implementation 'dev.imlisaa:minestom-ce:1.20.1-R0.1-SNAPSHOT'
+    implementation 'org.jline:jline:3.23.0'
+    implementation 'io.github.classgraph:classgraph:4.8.157'
+    implementation 'net.kyori:adventure-text-minimessage:4.14.0'
+}
+
+configurations.implementation.setCanBeResolved(true)
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    compileJava.options.encoding = "UTF-8"
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'net.phosphor.phosphor.PhosphorServerBootstrap',
+                'Multi-Release': true
+    }
+    archiveBaseName = 'phosphor-server'
+    archiveVersion = ''
+    archiveClassifier = ''
+
+    from {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        configurations.implementation.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
