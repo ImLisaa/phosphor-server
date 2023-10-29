@@ -25,7 +25,9 @@ dependencies {
 configurations.implementation.setCanBeResolved(true)
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+    toolchain {
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }
     compileJava.options.encoding = "UTF-8"
 }
 
