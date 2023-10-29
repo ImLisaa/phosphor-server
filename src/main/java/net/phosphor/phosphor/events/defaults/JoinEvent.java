@@ -23,7 +23,6 @@ public class JoinEvent implements EventListener<PlayerLoginEvent> {
             event.setSpawningInstance(instanceContainer);
             Component joinMessage = new KyoriTextFormatter("<dark_gray>┃ <red>Server <dark_gray>› <#419D78>" + player.getUsername() + " <gray>joined.").getComponent();
             PhosphorServerAPI.getInstance().broadcastMessage(joinMessage);
-            player.addPermission(new Permission("phosphor.command.gamemode"));
         });
         return Result.SUCCESS;
     }

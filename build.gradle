@@ -9,14 +9,17 @@ version = '1.20.1-R0.1-SNAPSHOT'
 repositories {
     mavenCentral()
     maven { url 'https://jitpack.io' }
-    maven { url 'https://repo.princessheaven.de/releases' }
 }
 
 dependencies {
-    implementation 'dev.imlisaa:minestom-ce:1.20.1-R0.1-SNAPSHOT'
+    implementation 'dev.hollowcube:minestom-ce:5bcc72b911'
+    implementation 'dev.hollowcube:minestom-ce-extensions:1.2.0'
     implementation 'org.jline:jline:3.23.0'
     implementation 'io.github.classgraph:classgraph:4.8.157'
     implementation 'net.kyori:adventure-text-minimessage:4.14.0'
+    implementation 'org.slf4j:slf4j-api:2.0.9'
+    implementation 'org.slf4j:slf4j-simple:2.0.9'
+
 }
 
 configurations.implementation.setCanBeResolved(true)
@@ -54,10 +57,9 @@ publishing {
         maven {
             url = version.toString().endsWith("-SNAPSHOT") ? "https://repo.princessheaven.de/snapshots" : "https://repo.princessheaven.de/releases"
             credentials {
-                username = project.property("repo_username").toString()
-                password = project.property("repo_password").toString()
+                username = ""
+                password = ""
             }
         }
     }
 }
-

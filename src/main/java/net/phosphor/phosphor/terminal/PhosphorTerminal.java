@@ -9,6 +9,7 @@ import org.jline.terminal.Terminal;
 import org.jline.terminal.TerminalBuilder;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
 public class PhosphorTerminal {
@@ -25,7 +26,7 @@ public class PhosphorTerminal {
                         .builder()
                         .system(true)
                         .dumb(true)
-                        .encoding(StandardCharsets.UTF_8)
+                        .encoding("UTF-8")
                         .name("Phosphor-Terminal")
                         .build();
             } catch (IOException e) {

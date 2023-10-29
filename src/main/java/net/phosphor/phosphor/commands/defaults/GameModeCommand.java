@@ -51,7 +51,7 @@ public class GameModeCommand extends Command {
                     GameMode gameMode = GameMode.fromId(gameModeId);
                     player.setGameMode(gameMode);
                     Component message = new KyoriTextFormatter("<dark_gray>┃ <red>GameMode <dark_gray>› <gray>Your " +
-                            "GameMode has been changed to <#419D78>" + gameMode.name() + " <dark_gray>.").getComponent();
+                            "GameMode has been changed to <#419D78>" + gameMode.name() + "<dark_gray>.").getComponent();
                     player.sendMessage(message);
                 } else {
                     String noPermissionMessage = PhosphorServerAPI.getInstance().getServerProperties().getProperty("no-permission-message", String.class);

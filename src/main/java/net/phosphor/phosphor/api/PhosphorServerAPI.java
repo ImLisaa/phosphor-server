@@ -1,9 +1,10 @@
 package net.phosphor.phosphor.api;
 
+import net.hollowcube.minestom.extensions.ExtensionBootstrap;
 import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.entity.Player;
-import net.phosphor.phosphor.api.extension.PhosphorExtensionManager;
+import net.minestom.server.extensions.ExtensionManager;
 import net.phosphor.phosphor.api.instance.InstanceProvider;
 import net.phosphor.phosphor.api.instance.type.InstanceType;
 import net.phosphor.phosphor.properties.ServerProperties;
@@ -16,16 +17,14 @@ import java.util.UUID;
 public abstract class PhosphorServerAPI {
 
     private static PhosphorServerAPI instance;
-    private final MinecraftServer minecraftServer;
+    private final ExtensionBootstrap extensionBootstrap;
     private final InstanceProvider instanceProvider;
     private final ServerProperties serverProperties;
-    private final PhosphorExtensionManager phosphorExtensionManager;
 
-    public PhosphorServerAPI(@NotNull MinecraftServer minecraftServer) throws IOException {
+    public PhosphorServerAPI(@NotNull ExtensionBootstrap extensionBootstrap) throws IOException {
         instance = this;
         this.serverProperties = new ServerProperties();
-        this.minecraftServer = minecraftServer;
-        this.phosphorExtensionManager = new PhosphorExtensionManager();
+        this.extensionBootstrap = extensionBootstrap;
         this.instanceProvider = new InstanceProvider();
         this.instanceProvider.createInstance("world", InstanceType.FLAT);
 
@@ -36,20 +35,16 @@ public abstract class PhosphorServerAPI {
         return instance;
     }
 
-    public MinecraftServer getMinecraftServer() {
-        return minecraftServer;
+    public ExtensionBootstrap getExtensionBootstrap() {
+        return this.extensionBootstrap;
     }
 
     public InstanceProvider getInstanceProvider() {
-        return instanceProvider;
+        return this.instanceProvider;
     }
 
     public ServerProperties getServerProperties() {
-        return serverProperties;
-    }
-
-    public PhosphorExtensionManager getPhosphorExtensionManager() {
-        return phosphorExtensionManager;
+        return this.serverProperties;
     }
 
     public Optional<Player> findPlayer(String name) {

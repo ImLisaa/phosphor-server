@@ -1,8 +1,10 @@
 package net.phosphor.phosphor;
 
+import net.hollowcube.minestom.extensions.ExtensionBootstrap;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.event.Event;
 import net.minestom.server.event.EventNode;
+import net.minestom.server.extensions.ExtensionManager;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.bungee.BungeeCordProxy;
 import net.minestom.server.extras.velocity.VelocityProxy;
@@ -22,12 +24,12 @@ import java.util.List;
 public class PhosphorServerBootstrap {
 
     private static PhosphorServerBootstrap instance;
-    private final MinecraftServer minecraftServer;
+    private final ExtensionBootstrap extensionBootstrap;
 
     private PhosphorServerBootstrap() throws IOException {
         instance = this;
-        this.minecraftServer = MinecraftServer.init();
-        new PhosphorServerAPI(this.minecraftServer) {
+        this.extensionBootstrap = ExtensionBootstrap.init();
+        new PhosphorServerAPI(this.extensionBootstrap) {
         };
         MinecraftServer.setTerminalEnabled(false);
         MinecraftServer.setBrandName("Phosphor 1.20.1-R0.1-SNAPSHOT");
@@ -78,7 +80,7 @@ public class PhosphorServerBootstrap {
             MinecraftServer.getGlobalEventHandler().addChild(defaultNode);
         }
         PhosphorTerminal.start();
-        this.minecraftServer.start(serverProperties.getProperty("address", String.class), serverProperties.getProperty("port", int.class));
+        this.extensionBootstrap.start(serverProperties.getProperty("address", String.class), serverProperties.getProperty("port", int.class));
     }
 
     public static PhosphorServerBootstrap getInstance() {
