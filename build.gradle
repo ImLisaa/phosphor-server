@@ -19,6 +19,8 @@ dependencies {
     implementation 'net.kyori:adventure-text-minimessage:4.14.0'
     implementation 'org.slf4j:slf4j-api:2.0.9'
     implementation 'org.slf4j:slf4j-simple:2.0.9'
+    implementation 'org.json:json:20231013'
+    implementation 'org.apache.commons:commons-lang3:3.13.0'
 
 }
 
@@ -49,7 +51,7 @@ jar {
 publishing {
     publications {
         maven(MavenPublication) {
-            groupId = 'net.phosphor.phosphor'
+            groupId = "net.phosphor.phosphor"
             artifactId = 'phosphor-server'
             version = "${project.version}"
             from components.java

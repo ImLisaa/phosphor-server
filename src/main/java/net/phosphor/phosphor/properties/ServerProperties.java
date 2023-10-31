@@ -2,6 +2,7 @@ package net.phosphor.phosphor.properties;
 
 import net.phosphor.phosphor.api.json.Document;
 import net.phosphor.phosphor.properties.defaults.DefaultServerProperties;
+import org.json.JSONObject;
 
 import java.nio.file.Files;
 import java.nio.file.Path;

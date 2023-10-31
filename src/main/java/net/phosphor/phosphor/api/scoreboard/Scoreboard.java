@@ -29,6 +29,7 @@ public class Scoreboard {
         this.sidebar.updateLineContent("line-" + lineId, updateLine);
     }
 
+    @Deprecated(forRemoval = true)
     public void runAnimation(Component... components) {
         MinecraftServer.getSchedulerManager().submitTask(() -> {
             animationTaskId++;

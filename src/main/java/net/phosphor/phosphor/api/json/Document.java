@@ -1,9 +1,7 @@
 package net.phosphor.phosphor.api.json;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
+import com.google.gson.*;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -48,6 +46,10 @@ public class Document {
         return GSON.fromJson(this.jsonObject.get(key), clazz);
     }
 
+    public <T> T getUnformatted(final String key, final Class<T> clazz) {
+        return GSON.fromJson(JsonParser.parseString(this.jsonObject.get(key).toString()), clazz);
+    }
+
     public <T> T get(final String key, final Type type) {
         return GSON.fromJson(this.jsonObject.get(key), type);
     }
@@ -67,6 +69,21 @@ public class Document {
         return this;
     }
 
+    public Document addIfNotExists(String key, Object state) {
+        if (!has(key)) set(key, state);
+        return this;
+    }
+
+    public Document addIfNotExists(String key, JsonArray array) {
+        if (!has(key)) set(key, array);
+        return this;
+    }
+
+    public Document addIfNotExists(String key, JsonElement element) {
+        if (!has(key)) set(key, element);
+        return this;
+    }
+
     public <T> T get(final Class<T> clazz) {
         return GSON.fromJson(this.jsonObject, clazz);
     }
@@ -77,6 +94,11 @@ public class Document {
 
     public Document set(final String key, final Object object) {
         this.jsonObject.add(key, GSON.toJsonTree(object, object.getClass()));
+        return this;
+    }
+
+    public Document setUnformatted(final String key, final JSONObject object) {
+        this.jsonObject.add(key, GSON.toJsonTree(JsonParser.parseString(object.toString(2))));
         return this;
     }
 

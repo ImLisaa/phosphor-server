@@ -9,6 +9,7 @@ import net.minestom.server.entity.Player;
 import net.minestom.server.permission.Permission;
 import net.phosphor.phosphor.api.PhosphorServerAPI;
 import net.phosphor.phosphor.api.command.NetworkCommand;
+import net.phosphor.phosphor.api.permission.PhosphorPermissionPlayer;
 import net.phosphor.phosphor.api.text.KyoriTextFormatter;
 
 @NetworkCommand
@@ -16,8 +17,6 @@ public class GameModeCommand extends Command {
 
     public GameModeCommand() {
         super("gamemode", "gm");
-
-        setCondition((sender, commandString) -> sender.hasPermission(new Permission("phosphor.command.gamemode")));
 
         ArgumentInteger numberArgument = ArgumentType.Integer("gamemode");
 
@@ -28,7 +27,7 @@ public class GameModeCommand extends Command {
         });
 
         setDefaultExecutor((sender, context) -> {
-            if (sender instanceof Player player) {
+            if (sender instanceof PhosphorPermissionPlayer player) {
                 if (player.hasPermission(new Permission("phosphor.command.gamemode"))) {
                     Component wrongArgument = new KyoriTextFormatter("<dark_gray>┃ <red>Argument <dark_gray>› <gray>Invalid " +
                             "argument. Please enter a number between 0 and 3.").getComponent();

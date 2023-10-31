@@ -12,6 +12,7 @@ import net.minestom.server.instance.Instance;
 import net.phosphor.phosphor.api.PhosphorServerAPI;
 import net.phosphor.phosphor.api.command.injector.CommandInjector;
 import net.phosphor.phosphor.api.command.loader.CommandLoader;
+import net.phosphor.phosphor.events.defaults.AsyncJoinEvent;
 import net.phosphor.phosphor.events.defaults.JoinEvent;
 import net.phosphor.phosphor.events.defaults.PingEvent;
 import net.phosphor.phosphor.events.defaults.QuitEvent;
@@ -47,6 +48,7 @@ public class PhosphorServerBootstrap {
         }));
         ServerProperties serverProperties = PhosphorServerAPI.getInstance().getServerProperties();
 
+
         if (serverProperties.getProperty("enable-default-commands", Boolean.class)) {
             CommandLoader commandLoader = new CommandLoader("net.phosphor.phosphor.commands.defaults");
             List<Class<?>> classSet = commandLoader.load();
@@ -77,6 +79,7 @@ public class PhosphorServerBootstrap {
             defaultNode.addListener(new PingEvent());
             defaultNode.addListener(new JoinEvent());
             defaultNode.addListener(new QuitEvent());
+            defaultNode.addListener(new AsyncJoinEvent());
             MinecraftServer.getGlobalEventHandler().addChild(defaultNode);
         }
         PhosphorTerminal.start();
